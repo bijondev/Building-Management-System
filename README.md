@@ -79,7 +79,7 @@ To scale this system to handle 1 million active users, we would implement the fo
 
 ## System Architecture
 
-```mermaid
+```
 graph TD
     User[User / Client]
     CDN[CDN (Cloudflare/AWS)]
