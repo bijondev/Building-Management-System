@@ -77,35 +77,6 @@ To scale this system to handle 1 million active users, we would implement the fo
 - **CDN:** Serve all static frontend assets (JS, CSS, Images) via a CDN (Cloudflare or AWS CloudFront) to reduce server load and latency.
 - **Container Orchestration:** Usage of Kubernetes (K8s) to manage auto-scaling of backend services based on CPU/Memory usage.
 
-## System Architecture
-
-```
-graph TD
-    User[User / Client]
-    CDN[CDN (Cloudflare/AWS)]
-    LB[Load Balancer (Nginx/ALB)]
-    Web[Web Server Cluster (Laravel)]
-    Worker[Queue Workers]
-    Redis[Redis Cluster (Cache & Queue)]
-    DB_Master[(MySQL Master)]
-    DB_Slave[(MySQL Read Replicas)]
-
-    User -->|Static Assets| CDN
-    User -->|API Requests| LB
-    LB --> Web
-    Web -->|Cache R/W| Redis
-    Web -->|Dispatch Jobs| Redis
-    Redis -->|Process Jobs| Worker
-    Web -->|Writes| DB_Master
-    Web -->|Reads| DB_Slave
-    Worker -->|Writes| DB_Master
-    DB_Master -.->|Replication| DB_Slave
-```
-
-## Visual System Diagram
-
-![System Architecture](docs/images/system_architecture.png)
-
 ## Database Schema Diagram
 
 ![Database ER Diagram](docs/images/database_schema.png)
